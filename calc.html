@@ -1,0 +1,89 @@
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+
+<div id="app">
+  <h1 v-once>{{ title }}</h1>
+  <input type="number" v-model="calc_number" />
+  <input type="button" v-on:click="sum()"  value="+"/>
+  <input type="button" v-on:click="multiplication()"  value="x"/>
+  <input type="button" v-on:click="division()" value="/" />
+  <input type="button" v-on:click="substraction()" value="-" />
+  <p>{{ calc_total }} </p>
+  <hr>
+  <p v-html="finishedLink"></p>
+</div>
+
+<script>
+new Vue({
+	el: '#app',
+  data: {
+  	title: 'Calc',
+    link: 'http://google.com',
+    finishedLink: '<a href="http://google.com">Google</a>',
+    calc_total:0,
+    calc_number:0,
+    action = '',
+  },
+  methods: {
+
+    action:function(){
+        if (parseInt(this.calc_total) != 0 && this.calc_number != '' && this.calc_number != 0) {
+            console.log('====================================');
+            console.log(parseInt(this.calc_number) != 0 && this.calc_number != '');
+            console.log('====================================');
+            this.calc_total = parseInt(this.calc_total) * parseInt(this.calc_number);
+            this.calc_number = 0;
+        } else {
+            if (parseInt(this.calc_total) == 0 && this.calc_number != '' && this.calc_number != 0) {
+                this.calc_total = parseInt(this.calc_number);
+                this.calc_number = 0;
+            }
+        }
+        this.calc_total = parseInt(this.calc_total) + parseInt(this.calc_number);
+    },
+    sum: function() {
+        action = 'sum';
+
+        this.calc_total = parseInt(this.calc_total) + parseInt(this.calc_number);
+        console.log('====================================');
+        console.log(this.calc_total,this.calc_number);
+        console.log('====================================');
+        this.calc_number = 0;
+    },
+    multiplication: function() {
+        action = 'multiplication';
+        if (parseInt(this.calc_total) != 0 && this.calc_number != '' && this.calc_number != 0) {
+            console.log('====================================');
+            console.log(parseInt(this.calc_number) != 0 && this.calc_number != '');
+            console.log('====================================');
+            this.calc_total = parseInt(this.calc_total) * parseInt(this.calc_number);
+            this.calc_number = 0;
+        } else {
+            if (parseInt(this.calc_total) == 0 && this.calc_number != '' && this.calc_number != 0) {
+                this.calc_total = parseInt(this.calc_number);
+                this.calc_number = 0;
+            }
+        }
+    },
+    division: function() {
+        action = 'division';
+    	this.calc_total = parseInt(this.calc_total) / parseInt(this.calc_number);
+        console.log('====================================');
+        console.log(this.calc_total,this.calc_number);
+        console.log('====================================');
+        this.calc_number = 0;
+    },
+    substraction: function() {
+        action = 'substraction';
+    	this.calc_total = parseInt(this.calc_total) - parseInt(this.calc_number);
+        console.log('====================================');
+        console.log(this.calc_total,this.calc_number);
+        console.log('====================================');
+        this.calc_number = 0;
+    },
+  	sayHello: function() {
+    	this.title = 'Hello!';
+    	return this.title;
+    }
+  }
+});
+</script>

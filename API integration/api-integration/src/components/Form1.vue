@@ -15,6 +15,15 @@
             <label><input type="checkbox" name="remember"> Remember me</label>
             </div>
             <button type="submit" class="btn btn-primary" @click="submit">Submit</button>
+            <br/>
+            <br/>
+            <hr/>
+                <buttton class="btn btn-primary" @click="fetchData">Get Data</buttton>
+            <br/>
+            <br/>
+            <ul class="list-group" >
+                <li class="list-group-item" v-for="u in users" v-bind:key="u">{{u.email }} - {{u.password}}</li>
+            </ul>
 
     </div>
 </div>
@@ -31,15 +40,40 @@ export default {
           user:{
                 email:'',
                 password:""
-          }
+          },
+          users:[]
       };
   },
   methods:{
       submit(){
-
+          this.$http.post('https://demofirebase-2d309.firebaseio.com/users.json',this.user)
+          .then(response =>{
+              console.log('====================================');
+              console.log(response);
+              console.log('====================================');
+          }, error =>{
+              console.log('====================================');
+              console.log(error);
+              console.log('====================================');
+          });
           console.log(this.user);
 
-      }
+      },
+      fetchData(){
+          this.$http.get('https://demofirebase-2d309.firebaseio.com/users.json')
+          .then(response =>{
+              return response.json();
+          }).then(data =>{
+              const resultArray = [];
+              for (let key  in data) {
+                  resultArray.push(data[key]);
+              }
+              this.users = resultArray;
+              console.log('====================================');
+              console.log(data);
+              console.log('====================================');
+          });
+      },
   }
 };
 </script>

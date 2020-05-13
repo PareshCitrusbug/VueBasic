@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <app-user-name></app-user-name>
-
   </div>
 </template>
 
